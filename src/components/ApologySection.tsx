@@ -16,7 +16,7 @@ const apologies = [
     text: "She welcomed me like family. I broke that trust. I carry that regret with me. She deserved better from me. Also maine jo hal kara tera vo unhone hee sambhala and most importantly tujhe sambhala.",
   },
   {
-    to: "Your Aunt",
+    to: "Your Maasi",
     text: "Her kindness and warmth never went unnoticed. I wasn't worthy of her trust. I am sorry for that. She trusted me, she gave me her car and allowed you to go out with me, and I made her scold you, and puri galti meri thi and maine tera aur unka relation bigada.",
   },
 ];

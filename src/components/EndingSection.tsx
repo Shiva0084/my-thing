@@ -37,18 +37,22 @@ export default function EndingSection() {
         }
       );
 
-      gsap.to(overlay, {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 10%",
-          end: "bottom bottom",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
+      gsap.fromTo(
+        overlay,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 20%",
+            end: "bottom bottom",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
     });
 
     return () => ctx.revert();
@@ -61,8 +65,8 @@ export default function EndingSection() {
     >
       <div
         ref={overlayRef}
-        className="pointer-events-none fixed inset-0 z-50 opacity-0"
-        style={{ backgroundColor: "#03050C" }}
+        className="pointer-events-none fixed inset-0 z-50"
+        style={{ backgroundColor: "#03050C", opacity: 0 }}
       />
 
       <div ref={textRef} className="mx-auto max-w-md space-y-8 text-center">
