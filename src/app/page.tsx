@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AudioToggle from "@/components/AudioToggle";
 
 import Moon from "@/components/Moon";
 import LandingSection from "@/components/LandingSection";
@@ -73,8 +74,13 @@ function FixedMoon() {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen" style={{ backgroundColor: "#03050C" }}>
+    <main
+      className="relative min-h-screen"
+      style={{ backgroundColor: "#03050C" }}
+    >
       <FixedMoon />
+
+      <AudioToggle />
 
       <div className="relative z-10">
         <LandingSection />

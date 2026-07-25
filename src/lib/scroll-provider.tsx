@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -15,9 +16,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollContextType {
   progress: number;
+  lenisRef: React.MutableRefObject<Lenis | null>;
 }
 
-const ScrollContext = createContext<ScrollContextType>({ progress: 0 });
+const ScrollContext = createContext<ScrollContextType>({
+  progress: 0,
+  lenisRef: { current: null },
+});
 
 export function useScroll() {
   return useContext(ScrollContext);
@@ -25,6 +30,7 @@ export function useScroll() {
 
 export function ScrollProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState(0);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -33,6 +39,8 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
       smoothWheel: true,
       syncTouch: true,
     });
+
+    lenisRef.current = lenis;
 
     lenis.on("scroll", (e) => {
       setProgress(Math.max(0, Math.min(1, e.progress)));
@@ -52,13 +60,14 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
     return () => {
       window.removeEventListener("resize", handleResize);
       ScrollTrigger.getAll().forEach((st) => st.kill());
+      lenisRef.current = null;
       lenis.destroy();
       gsap.ticker.lagSmoothing(1);
     };
   }, []);
 
   return (
-    <ScrollContext.Provider value={{ progress }}>
+    <ScrollContext.Provider value={{ progress, lenisRef }}>
       {children}
     </ScrollContext.Provider>
   );
